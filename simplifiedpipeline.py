@@ -1,17 +1,17 @@
 
-
-
-
-
-caches = {}
 instructions = ['LI $1 4','LI $2 5','LI $3 6', 'MUL $1 $2 $4','SW $4 $100','MUL $3 $4 $4', 'MUL $1 $3 $1', 'MUL $2 $3 $2','ADD $1 $2 $1', 'LW $3 $100', 'ADD $1 $3 $2', 'ADD $2 $2 $3']
 instr_len = len(instructions)
+#simulate the cache with a dictionary
+caches = {}
+#split up the instructions 
 instr_var = {}
+#keep track of when to stall - initialize with 0s
 stall = {}
 for idx in range(len(instructions)+5):
     stall[idx]=0
 stall[-1] = 0
 stall[-2] = 0
+#keeps track of which instruction is current at each stage
 instr_c = 0
 decodes_c = -1
 executes_c = -2
@@ -118,9 +118,12 @@ for indx in range(1,instr_len):
       
 stall1 = False
 stall2 = False
-#print intro here
 
-
+print("This program simulates a simplified version of pipelining in a CPU taking instructions in assembly language.")
+print("To keep it simple it has no branching and does not do the write-back.")
+print(' ')
+print("The instructions input the length, width and height of a box then calculates the box's Volume and Surface Area.")
+print(" ")
 print("-------------------------------------------")
 
 
@@ -169,7 +172,7 @@ while mem_access_c < instr_len:
         print("memory access instruction: no memory access yet")
         mem_access_c +=1
     else:
-        print("memory access instruction: no change in cache2")
+        print("memory access instruction: no change in cache")
 
     if stall[instr_c-2]==1:
         stall1 = not stall1
@@ -179,4 +182,4 @@ while mem_access_c < instr_len:
 
     print("-------------------------------------------")
 
-print(caches['$3'],caches['$4'])
+
